@@ -11,6 +11,9 @@ export const authApi = {
   logout: () =>
     api.post('/api/auth/logout'),
 
+  setAvatar: (avatarId) =>
+    api.post('/api/perfil/avatar', { avatar_url: avatarId, avatar: avatarId }),
+
   uploadAvatar: (formData) =>
     api.post('/api/perfil/avatar', formData, {
       headers: {

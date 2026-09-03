@@ -20,6 +20,7 @@ import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
 import { Badge } from '../../components/Badge';
 import { confirmDialog, notifyAlert } from '../../utils/alert';
+import { FloatingMascot } from '../../components/FloatingMascot';
 
 export const SalasScreen = ({ navigation }) => {
   const [salas, setSalas] = useState([]);
@@ -232,6 +233,9 @@ export const SalasScreen = ({ navigation }) => {
           </Card>
         </View>
       </Modal>
+
+      {/* Mascote Flutuante no Canto Inferior Direito */}
+      <FloatingMascot />
     </SafeAreaView>
   );
 };

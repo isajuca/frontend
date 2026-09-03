@@ -21,6 +21,7 @@ import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
 import { Badge } from '../../components/Badge';
 import { confirmDialog, notifyAlert } from '../../utils/alert';
+import { FloatingMascot } from '../../components/FloatingMascot';
 
 export const SalaDetalhesScreen = ({ route, navigation }) => {
   const { salaId, salaNome } = route.params;
@@ -39,11 +40,18 @@ export const SalaDetalhesScreen = ({ route, navigation }) => {
   const [nomeEquipe, setNomeEquipe] = useState('');
   const [periodoEquipeId, setPeriodoEquipeId] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  const [totalPendentes, setTotalPendentes] = useState(0);
 
   const carregarDetalhes = useCallback(async () => {
     try {
-      const res = await professorApi.detalhesSala(salaId);
+      const [res, resEntregas] = await Promise.all([
+        professorApi.detalhesSala(salaId),
+        professorApi.listarEntregas(salaId).catch(() => null),
+      ]);
       setData(res.data);
+      if (resEntregas?.data?.resumo?.pendentes !== undefined) {
+        setTotalPendentes(resEntregas.data.resumo.pendentes);
+      }
     } catch (error) {
       notifyAlert('Erro', error.message || 'Falha ao carregar detalhes da sala.');
     } finally {
@@ -202,13 +210,32 @@ export const SalaDetalhesScreen = ({ route, navigation }) => {
         {/* Ações Rápidas da Sala */}
         <View style={styles.actionGrid}>
           <TouchableOpacity
-            style={styles.actionCard}
+            style={[styles.actionCard, totalPendentes > 0 && styles.actionCardPending]}
             onPress={() => navigation.navigate('Entregas', { salaId, salaNome })}
           >
-            <View style={[styles.actionIconCircle, { backgroundColor: colors.primaryLight }]}>
-              <Ionicons name="checkbox-outline" size={20} color={colors.primary} />
+            <View
+              style={[
+                styles.actionIconCircle,
+                {
+                  backgroundColor: totalPendentes > 0 ? colors.dangerLight : colors.primaryLight,
+                },
+              ]}
+            >
+              <Ionicons
+                name="checkbox-outline"
+                size={20}
+                color={totalPendentes > 0 ? colors.danger : colors.primary}
+              />
+              {totalPendentes > 0 && (
+                <View style={styles.badgePendingCount}>
+                  <Text style={styles.badgePendingText}>{totalPendentes}</Text>
+                </View>
+              )}
             </View>
             <Text style={styles.actionCardText}>Entregas</Text>
+            {totalPendentes > 0 ? (
+              <Text style={styles.actionSubPendingText}>{totalPendentes} pendente(s)</Text>
+            ) : null}
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -619,6 +646,9 @@ export const SalaDetalhesScreen = ({ route, navigation }) => {
           </View>
         </Modal>
       </ScrollView>
+
+      {/* Mascote Flutuante no Canto Inferior Direito */}
+      <FloatingMascot />
     </SafeAreaView>
   );
 };
@@ -627,13 +657,14 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     backgroundColor: colors.background,
+    position: 'relative',
   },
   container: {
     padding: 16,
-    maxWidth: 720,
+    maxWidth: 960,
     width: '100%',
     alignSelf: 'center',
-    paddingBottom: 30,
+    paddingBottom: 48,
   },
   loadingContainer: {
     flex: 1,
@@ -654,6 +685,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderColor: colors.border,
+    position: 'relative',
+  },
+  actionCardPending: {
+    borderColor: colors.danger,
+    backgroundColor: 'rgba(239, 68, 68, 0.05)',
   },
   actionIconCircle: {
     width: 40,
@@ -662,11 +698,37 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 6,
+    position: 'relative',
+  },
+  badgePendingCount: {
+    position: 'absolute',
+    top: -4,
+    right: -6,
+    backgroundColor: colors.danger,
+    borderRadius: 10,
+    minWidth: 18,
+    height: 18,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 4,
+    borderWidth: 1.5,
+    borderColor: '#0B0E2A',
+  },
+  badgePendingText: {
+    color: '#FFFFFF',
+    fontSize: 10,
+    fontWeight: '800',
   },
   actionCardText: {
     fontSize: 12,
-    fontWeight: '600',
+    fontWeight: '700',
     color: colors.textPrimary,
+  },
+  actionSubPendingText: {
+    fontSize: 10,
+    fontWeight: '700',
+    color: colors.danger,
+    marginTop: 2,
   },
   tabBar: {
     flexDirection: 'row',

@@ -18,6 +18,8 @@ import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
 import { Badge } from '../../components/Badge';
 import { notifyAlert } from '../../utils/alert';
+import { PRESET_STICKERS, getStickerSource } from '../../constants/stickers';
+import { FloatingMascot } from '../../components/FloatingMascot';
 
 export const MissoesGerenciarScreen = ({ route, navigation }) => {
   const { salaId, periodos = [], missao } = route.params;
@@ -43,9 +45,14 @@ export const MissoesGerenciarScreen = ({ route, navigation }) => {
   const carregarStickers = async () => {
     try {
       const res = await professorApi.listarStickers();
-      setStickers(res.data || []);
+      const serverStickers = res.data || [];
+      if (serverStickers.length > 0) {
+        setStickers(serverStickers);
+      } else {
+        setStickers(PRESET_STICKERS);
+      }
     } catch (e) {
-      console.warn('Erro ao carregar stickers', e);
+      setStickers(PRESET_STICKERS);
     }
   };
 
@@ -202,33 +209,33 @@ export const MissoesGerenciarScreen = ({ route, navigation }) => {
           {/* Seleção de Sticker de Recompensa */}
           <View style={styles.fieldSection}>
             <Text style={styles.label}>Sticker / Badge de Recompensa (Opcional)</Text>
-            {stickers.length === 0 ? (
-              <Text style={styles.helper}>Nenhum sticker cadastrado no catálogo.</Text>
-            ) : (
-              <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.stickerScroll}>
-                <TouchableOpacity
-                  style={[styles.stickerCard, !stickerId && styles.stickerCardActive]}
-                  onPress={() => setStickerId('')}
-                >
-                  <Ionicons name="close-circle-outline" size={32} color={colors.textMuted} />
-                  <Text style={styles.stickerName}>Nenhum</Text>
-                </TouchableOpacity>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.stickerScroll}>
+              <TouchableOpacity
+                style={[styles.stickerCard, !stickerId && styles.stickerCardActive]}
+                onPress={() => setStickerId('')}
+              >
+                <Ionicons name="close-circle-outline" size={32} color={colors.textMuted} />
+                <Text style={styles.stickerName}>Nenhum</Text>
+              </TouchableOpacity>
 
-                {stickers.map((s) => (
+              {stickers.map((s) => {
+                const imageSource = s.source || getStickerSource(s.imagem_url || s.nome);
+                const isSelected = stickerId === s.id;
+                return (
                   <TouchableOpacity
-                    key={s.id}
-                    style={[styles.stickerCard, stickerId === s.id && styles.stickerCardActive]}
+                    key={s.id || s.nome}
+                    style={[styles.stickerCard, isSelected && styles.stickerCardActive]}
                     onPress={() => setStickerId(s.id)}
                   >
-                    <Image source={{ uri: s.imagem_url }} style={styles.stickerImg} />
+                    <Image source={imageSource} style={styles.stickerImg} resizeMode="contain" />
                     <Text style={styles.stickerName} numberOfLines={1}>
                       {s.nome}
                     </Text>
                     <Badge raridade={s.raridade} style={{ marginTop: 2 }} />
                   </TouchableOpacity>
-                ))}
-              </ScrollView>
-            )}
+                );
+              })}
+            </ScrollView>
           </View>
 
           <Button
@@ -239,6 +246,9 @@ export const MissoesGerenciarScreen = ({ route, navigation }) => {
           />
         </Card>
       </ScrollView>
+
+      {/* Mascote Flutuante no Canto Inferior Direito */}
+      <FloatingMascot />
     </SafeAreaView>
   );
 };

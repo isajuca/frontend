@@ -173,12 +173,7 @@ export const CosmicMissionMap = ({ periodos = [], onSelectMissao }) => {
                           resizeMode="contain"
                         />
 
-                        {/* Indicador sobreposto de Concluído / Cadeado */}
-                        {isCompleted && (
-                          <View style={styles.badgeCompletedOverlay}>
-                            <Ionicons name="checkmark-circle" size={24} color="#00F0FF" />
-                          </View>
-                        )}
+                        {/* Indicador sobreposto apenas de Cadeado (se bloqueada) */}
                         {isLocked && (
                           <View style={styles.badgeLockedOverlay}>
                             <Ionicons name="lock-closed" size={18} color="#A5B4FC" />

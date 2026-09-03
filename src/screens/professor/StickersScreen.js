@@ -22,6 +22,7 @@ import { Input } from '../../components/Input';
 import { Badge } from '../../components/Badge';
 import { confirmDialog, notifyAlert } from '../../utils/alert';
 import { PRESET_STICKERS, getStickerSource } from '../../constants/stickers';
+import { FloatingMascot } from '../../components/FloatingMascot';
 
 export const StickersScreen = ({ navigation }) => {
   const [stickers, setStickers] = useState([]);
@@ -296,6 +297,9 @@ export const StickersScreen = ({ navigation }) => {
             </Card>
           </View>
         </Modal>
+
+        {/* Mascote Flutuante no Canto Inferior Direito */}
+        <FloatingMascot />
       </View>
     </SafeAreaView>
   );

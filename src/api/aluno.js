@@ -27,7 +27,37 @@ export const alunoApi = {
   getStickersCatalogo: () =>
     api.get('/api/professor/stickers'),
 
-  // Biblioteca de Materiais da Sala
-  getBibliotecaSala: (salaId) =>
-    api.get(`/api/professor/salas/${salaId}/biblioteca`),
+  // Biblioteca de Materiais da Sala com fallback inteligente
+  getBibliotecaSala: async (salaId, missoesIds = []) => {
+    try {
+      const res = await api.get(`/api/aluno/salas/${salaId}/biblioteca`);
+      return res;
+    } catch (e) {
+      try {
+        const resProf = await api.get(`/api/professor/salas/${salaId}/biblioteca`);
+        return resProf;
+      } catch (err) {
+        // Fallback inteligente: reúne materiais de todas as missões da trilha
+        if (missoesIds && missoesIds.length > 0) {
+          const promises = missoesIds.map((mid) =>
+            api.get(`/api/aluno/missoes/${mid}`).catch(() => null)
+          );
+          const results = await Promise.all(promises);
+          const allMateriais = [];
+          results.forEach((r) => {
+            if (r?.data?.materiais && Array.isArray(r.data.materiais)) {
+              r.data.materiais.forEach((mat) => {
+                allMateriais.push({
+                  ...mat,
+                  missoes: { titulo: r.data.missao?.titulo || 'Missão' },
+                });
+              });
+            }
+          });
+          return { data: { materiais: allMateriais } };
+        }
+        return { data: { materiais: [] } };
+      }
+    }
+  },
 };

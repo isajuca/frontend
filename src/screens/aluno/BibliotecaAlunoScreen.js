@@ -29,7 +29,16 @@ export const BibliotecaAlunoScreen = ({ navigation }) => {
       const dash = await alunoApi.getDashboard();
       if (dash.data?.tem_sala && dash.data.sala?.id) {
         setSalaNome(dash.data.sala.nome);
-        const res = await alunoApi.getBibliotecaSala(dash.data.sala.id);
+
+        // Coleta os IDs de todas as missões da trilha para fallback completo
+        const missoesIds = [];
+        (dash.data.periodos_trilha || []).forEach((p) => {
+          (p.missoes || []).forEach((m) => {
+            if (m.id) missoesIds.push(m.id);
+          });
+        });
+
+        const res = await alunoApi.getBibliotecaSala(dash.data.sala.id, missoesIds);
         setMateriais(res.data?.materiais || []);
       } else {
         setMateriais([]);

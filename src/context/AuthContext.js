@@ -27,8 +27,15 @@ export const AuthProvider = ({ children }) => {
       const storedUser = await AsyncStorage.getItem('@auth_user');
 
       if (storedToken && storedUser) {
+        const userData = JSON.parse(storedUser);
+        if (userData?.id) {
+          const localAvatar = await AsyncStorage.getItem(`@user_avatar_${userData.id}`);
+          if (localAvatar) {
+            userData.avatar_url = localAvatar;
+          }
+        }
         setToken(storedToken);
-        setUser(JSON.parse(storedUser));
+        setUser(userData);
       }
     } catch (e) {
       console.warn('Erro ao restaurar sessão local:', e);
@@ -40,6 +47,14 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, senha) => {
     const res = await authApi.login({ email, senha });
     const { access_token, user: userData } = res.data;
+
+    // Recupera avatar salvo pelo usuário localmente para garantir persistência mesmo se o banco tiver null
+    if (userData?.id) {
+      const localAvatar = await AsyncStorage.getItem(`@user_avatar_${userData.id}`);
+      if (localAvatar) {
+        userData.avatar_url = localAvatar;
+      }
+    }
 
     await AsyncStorage.setItem('@auth_token', access_token);
     await AsyncStorage.setItem('@auth_user', JSON.stringify(userData));
@@ -70,7 +85,18 @@ export const AuthProvider = ({ children }) => {
   const updateUser = async (updatedFields) => {
     const updated = { ...user, ...updatedFields };
     setUser(updated);
-    await AsyncStorage.setItem('@auth_user', JSON.stringify(updated));
+
+    if (user?.id) {
+      if (updatedFields.avatar_url) {
+        await AsyncStorage.setItem(`@user_avatar_${user.id}`, updatedFields.avatar_url);
+        try {
+          await authApi.setAvatar(updatedFields.avatar_url);
+        } catch (e) {
+          console.warn('Tentativa de sincronizar avatar com backend:', e);
+        }
+      }
+      await AsyncStorage.setItem('@auth_user', JSON.stringify(updated));
+    }
   };
 
   return (
