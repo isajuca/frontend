@@ -88,7 +88,7 @@ export const EquipesGerenciarScreen = ({ route, navigation }) => {
         onBack={() => navigation.goBack()}
       />
 
-      <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false} contentContainerStyle={styles.container}>
         {/* Integrantes Atuais */}
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>Membros da Equipe ({membros.length})</Text>
@@ -210,3 +210,4 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+

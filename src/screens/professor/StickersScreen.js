@@ -192,7 +192,7 @@ export const StickersScreen = ({ navigation }) => {
             <ActivityIndicator size="large" color={colors.primary} />
           </View>
         ) : (
-          <FlatList
+          <FlatList showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}
             data={stickers}
             keyExtractor={(item) => item.id}
             renderItem={renderItem}
@@ -498,3 +498,4 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
 });
+

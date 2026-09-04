@@ -77,7 +77,7 @@ export const GerarQuizScreen = ({ route, navigation }) => {
         onBack={() => navigation.goBack()}
       />
 
-      <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
+      <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false} contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
         {/* Formulário de Geração */}
         <Card style={styles.formCard}>
           <View style={styles.aiHeader}>
@@ -390,3 +390,4 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
 });
+

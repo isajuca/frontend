@@ -75,7 +75,7 @@ export const QuizScreen = ({ route, navigation }) => {
         onBack={() => navigation.goBack()}
       />
 
-      <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false} contentContainerStyle={styles.container}>
         {resultado ? (
           /* Card de Resultado Final */
           <Card style={styles.resultCard}>
@@ -308,3 +308,4 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
 });
+

@@ -158,7 +158,7 @@ export const SalasScreen = ({ navigation }) => {
             <ActivityIndicator size="large" color={colors.primary} />
           </View>
         ) : (
-          <FlatList
+          <FlatList showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}
             data={salas}
             keyExtractor={(item) => item.id}
             renderItem={renderSalaItem}
@@ -390,3 +390,4 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
 });
+

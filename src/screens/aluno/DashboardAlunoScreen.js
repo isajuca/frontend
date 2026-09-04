@@ -90,7 +90,7 @@ export const DashboardAlunoScreen = ({ navigation }) => {
   if (!data?.tem_sala) {
     return (
       <SafeAreaView style={styles.safeArea}>
-        <ScrollView
+        <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.emptyContainer}
           keyboardShouldPersistTaps="handled"
           refreshControl={
@@ -173,7 +173,7 @@ export const DashboardAlunoScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <ScrollView
+      <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.container}
         refreshControl={
           <RefreshControl
@@ -616,3 +616,4 @@ const styles = StyleSheet.create({
     maxWidth: 320,
   },
 });
+

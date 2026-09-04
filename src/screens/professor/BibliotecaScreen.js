@@ -132,23 +132,39 @@ export const BibliotecaScreen = ({ route, navigation }) => {
         </TouchableOpacity>
       </View>
 
-      {item.links && item.links.length > 0 && (
-        <View style={styles.linksContainer}>
-          <Text style={styles.linksLabel}>Links de Referência:</Text>
-          {item.links.map((link, idx) => (
-            <TouchableOpacity
-              key={idx}
-              style={styles.linkRow}
-              onPress={() => Linking.openURL(link)}
-            >
-              <Ionicons name="link-outline" size={14} color={colors.primary} />
-              <Text style={styles.linkUrl} numberOfLines={1}>
-                {link}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-      )}
+      {(() => {
+        let linksArray = [];
+        if (Array.isArray(item.links)) {
+          linksArray = item.links;
+        } else if (typeof item.links === 'string') {
+          try {
+            linksArray = JSON.parse(item.links);
+          } catch(e) {
+            linksArray = [item.links];
+          }
+        }
+        
+        if (linksArray && linksArray.length > 0) {
+          return (
+            <View style={styles.linksContainer}>
+              <Text style={styles.linksLabel}>Links de Referência:</Text>
+              {linksArray.map((link, idx) => (
+                <TouchableOpacity
+                  key={idx}
+                  style={styles.linkRow}
+                  onPress={() => Linking.openURL(link)}
+                >
+                  <Ionicons name="link-outline" size={14} color={colors.primary} />
+                  <Text style={styles.linkUrl} numberOfLines={1}>
+                    {link}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          );
+        }
+        return null;
+      })()}
     </Card>
   );
 
@@ -174,7 +190,7 @@ export const BibliotecaScreen = ({ route, navigation }) => {
             <ActivityIndicator size="large" color={colors.primary} />
           </View>
         ) : (
-          <FlatList
+          <FlatList showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}
             data={materiais}
             keyExtractor={(item) => item.id}
             renderItem={renderItem}
@@ -467,3 +483,4 @@ const styles = StyleSheet.create({
     marginTop: 14,
   },
 });
+

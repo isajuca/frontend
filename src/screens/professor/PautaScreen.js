@@ -57,7 +57,7 @@ export const PautaScreen = ({ route, navigation }) => {
       <View style={styles.container}>
         {/* Filtro de Período */}
         {periodos.length > 0 && (
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterScroll}>
+          <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false} horizontal showsHorizontalScrollIndicator={false} style={styles.filterScroll}>
             <TouchableOpacity
               style={[styles.filterChip, !filtroPeriodo && styles.filterChipActive]}
               onPress={() => setFiltroPeriodo('')}
@@ -85,7 +85,7 @@ export const PautaScreen = ({ route, navigation }) => {
             <ActivityIndicator size="large" color={colors.primary} />
           </View>
         ) : (
-          <ScrollView contentContainerStyle={styles.scrollContent}>
+          <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
             {pautaData.length === 0 ? (
               <Card style={styles.emptyCard}>
                 <Ionicons name="stats-chart-outline" size={40} color={colors.textMuted} />
@@ -322,3 +322,4 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
 });
+

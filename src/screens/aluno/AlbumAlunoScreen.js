@@ -104,7 +104,7 @@ export const AlbumAlunoScreen = ({ navigation }) => {
             <ActivityIndicator size="large" color={colors.primary} />
           </View>
         ) : (
-          <FlatList
+          <FlatList showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}
             data={conquistados}
             keyExtractor={(item, idx) => `${item.id || idx}`}
             renderItem={renderItem}
@@ -252,3 +252,4 @@ const styles = StyleSheet.create({
     maxWidth: 340,
   },
 });
+

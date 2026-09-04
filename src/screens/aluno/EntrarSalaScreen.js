@@ -55,7 +55,7 @@ export const EntrarSalaScreen = ({ navigation }) => {
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         style={{ flex: 1 }}
       >
-        <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
+        <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false} contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
           <View style={styles.iconContainer}>
             <View style={styles.iconCircle}>
               <Ionicons name="key" size={32} color={colors.primary} />
@@ -171,3 +171,4 @@ const styles = StyleSheet.create({
     marginTop: 14,
   },
 });
+

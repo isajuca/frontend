@@ -68,7 +68,7 @@ export const PerfilScreen = () => {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false} contentContainerStyle={styles.container}>
         {/* Topo com Logo no canto esquerdo e Badge à direita */}
         <View style={styles.topBar}>
           <Image
@@ -176,7 +176,7 @@ export const PerfilScreen = () => {
               </TouchableOpacity>
             </View>
 
-            <FlatList
+            <FlatList showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}
               data={PRESET_AVATARS}
               keyExtractor={(item) => item.id}
               renderItem={renderAvatarOption}
@@ -429,3 +429,4 @@ const styles = StyleSheet.create({
     right: 6,
   },
 });
+

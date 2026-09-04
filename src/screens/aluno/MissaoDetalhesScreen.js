@@ -92,7 +92,7 @@ export const MissaoDetalhesScreen = ({ route, navigation }) => {
         onBack={() => navigation.goBack()}
       />
 
-      <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false} contentContainerStyle={styles.container}>
         {/* Card Principal da Missão */}
         <Card style={styles.mainCard}>
           <View style={styles.badgeRow}>
@@ -440,3 +440,4 @@ const styles = StyleSheet.create({
     color: colors.textSecondary,
   },
 });
+

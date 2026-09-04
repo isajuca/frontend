@@ -127,7 +127,7 @@ export const LojaStickersScreen = ({ navigation }) => {
             <ActivityIndicator size="large" color={colors.primary} />
           </View>
         ) : (
-          <FlatList
+          <FlatList showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}
             data={stickersFiltrados}
             keyExtractor={(item, idx) => `${item.id || item.nome || idx}`}
             renderItem={renderItem}
@@ -288,3 +288,4 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
 });
+

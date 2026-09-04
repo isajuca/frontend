@@ -124,7 +124,7 @@ export const EntregasScreen = ({ route, navigation }) => {
 
         {/* Filtros de Quadrimestre */}
         {periodos.length > 0 && (
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterScroll}>
+          <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false} horizontal showsHorizontalScrollIndicator={false} style={styles.filterScroll}>
             <TouchableOpacity
               style={[styles.filterChip, !filtroPeriodo && styles.filterChipActive]}
               onPress={() => setFiltroPeriodo('')}
@@ -152,7 +152,7 @@ export const EntregasScreen = ({ route, navigation }) => {
             <ActivityIndicator size="large" color={colors.primary} />
           </View>
         ) : (
-          <FlatList
+          <FlatList showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}
             data={entregas}
             keyExtractor={(item) => item.id}
             renderItem={renderItem}
@@ -327,3 +327,4 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
 });
+

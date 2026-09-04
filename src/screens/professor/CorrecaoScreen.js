@@ -94,7 +94,7 @@ export const CorrecaoScreen = ({ route, navigation }) => {
     <SafeAreaView style={styles.safeArea}>
       <Header title="Avaliar Entrega" onBack={() => navigation.goBack()} />
 
-      <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
+      <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false} contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
         {/* Card do Aluno e Equipe */}
         <Card style={styles.infoCard}>
           <Text style={styles.sectionTitle}>Estudante & Equipe</Text>
@@ -247,3 +247,4 @@ const styles = StyleSheet.create({
     marginTop: 14,
   },
 });
+

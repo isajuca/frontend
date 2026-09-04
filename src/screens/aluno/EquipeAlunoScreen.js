@@ -60,7 +60,7 @@ export const EquipeAlunoScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <ScrollView
+      <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.container}
         refreshControl={
           <RefreshControl
@@ -340,3 +340,4 @@ const styles = StyleSheet.create({
     maxWidth: 340,
   },
 });
+

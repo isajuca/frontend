@@ -107,7 +107,7 @@ export const MissoesGerenciarScreen = ({ route, navigation }) => {
         onBack={() => navigation.goBack()}
       />
 
-      <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
+      <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false} contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
         <Card style={styles.formCard}>
           {errorMsg ? (
             <View style={styles.errorContainer}>
@@ -209,7 +209,7 @@ export const MissoesGerenciarScreen = ({ route, navigation }) => {
           {/* Seleção de Sticker de Recompensa */}
           <View style={styles.fieldSection}>
             <Text style={styles.label}>Sticker / Badge de Recompensa (Opcional)</Text>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.stickerScroll}>
+            <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false} horizontal showsHorizontalScrollIndicator={false} style={styles.stickerScroll}>
               <TouchableOpacity
                 style={[styles.stickerCard, !stickerId && styles.stickerCardActive]}
                 onPress={() => setStickerId('')}
@@ -375,3 +375,4 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
 });
+

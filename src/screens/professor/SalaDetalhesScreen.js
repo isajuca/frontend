@@ -206,7 +206,7 @@ export const SalaDetalhesScreen = ({ route, navigation }) => {
         onBack={() => navigation.goBack()}
       />
 
-      <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false} contentContainerStyle={styles.container}>
         {/* Ações Rápidas da Sala */}
         <View style={styles.actionGrid}>
           <TouchableOpacity
@@ -875,3 +875,4 @@ const styles = StyleSheet.create({
     marginTop: 14,
   },
 });
+
