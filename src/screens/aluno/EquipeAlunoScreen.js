@@ -159,17 +159,18 @@ export const EquipeAlunoScreen = ({ navigation }) => {
               </Card>
 
               {/* Co-integrantes */}
-              {colegas.map((c) => (
-                <Card key={c.id} style={styles.memberCard}>
-                  <View style={styles.memberAvatarPlaceholder}>
-                    <Ionicons name="person-outline" size={20} color={colors.primary} />
-                  </View>
-                  <View style={{ flex: 1, marginLeft: 12 }}>
-                    <Text style={styles.memberName}>{c.nome}</Text>
-                    <Text style={styles.memberRole}>Colega de Grupo</Text>
-                  </View>
-                </Card>
-              ))}
+              {colegas.map((c) => {
+                const colegaAvatarSource = getAvatarSource(c.avatar_url) || require('../../../assets/Perfil/feliz.png');
+                return (
+                  <Card key={c.id} style={styles.memberCard}>
+                    <Image source={colegaAvatarSource} style={styles.memberAvatarImg} resizeMode="contain" />
+                    <View style={{ flex: 1, marginLeft: 12 }}>
+                      <Text style={styles.memberName}>{c.nome}</Text>
+                      <Text style={styles.memberRole}>Colega de Tripulação</Text>
+                    </View>
+                  </Card>
+                );
+              })}
             </View>
           </View>
         )}

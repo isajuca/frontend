@@ -39,10 +39,32 @@ export const CosmicMissionMap = ({ periodos = [], onSelectMissao }) => {
   const currentPeriodo = periodos.find((p) => p.id === selectedPeriodoId) || periodos[0];
   const missoes = currentPeriodo?.missoes || [];
 
-  // Encontra a primeira missão ativa/disponível para posicionar o foguete
-  const activeMissionIndex = missoes.findIndex(
+  // Encontra a missão onde o foguete deve pousar:
+  // 1. A primeira missão disponível ou entregue
+  // 2. Se todas foram concluídas, pousa na próxima ou na última concluída
+  // 3. Caso nenhuma tenha sido iniciada, fica na primeira (0)
+  let activeMissionIndex = missoes.findIndex(
     (m) => m.status_aluno === 'disponivel' || m.status_aluno === 'entregue'
   );
+
+  if (activeMissionIndex === -1) {
+    let lastCompletedIdx = -1;
+    for (let i = 0; i < missoes.length; i++) {
+      if (
+        missoes[i].status_aluno === 'concluida' ||
+        missoes[i].status_aluno === 'corrigido' ||
+        missoes[i].status_aluno === 'entregue'
+      ) {
+        lastCompletedIdx = i;
+      }
+    }
+    if (lastCompletedIdx !== -1) {
+      // Posiciona na próxima estação alcançada ou na última concluída se estiver no final
+      activeMissionIndex = Math.min(lastCompletedIdx + 1, missoes.length - 1);
+    } else {
+      activeMissionIndex = 0;
+    }
+  }
 
   return (
     <Card style={styles.cardContainer}>
