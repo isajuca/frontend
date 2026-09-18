@@ -3,31 +3,31 @@
 export const PRESET_STICKERS = [
   // COMUM
   {
-    id: 'comum_acenando',
+    id: '1',
     nome: 'Acenando',
     raridade: 'comum',
     source: require('../../assets/Stikers/Comum/Acenando.png'),
   },
   {
-    id: 'comum_escrevendo',
+    id: '2',
     nome: 'Escrevendo',
     raridade: 'comum',
     source: require('../../assets/Stikers/Comum/Escrevendo.png'),
   },
   {
-    id: 'comum_estudando',
+    id: '3',
     nome: 'Estudando',
     raridade: 'comum',
     source: require('../../assets/Stikers/Comum/Estudando.png'),
   },
   {
-    id: 'comum_joinha',
+    id: '4',
     nome: 'Joinha',
     raridade: 'comum',
     source: require('../../assets/Stikers/Comum/Joinha.png'),
   },
   {
-    id: 'comum_lendo',
+    id: '5',
     nome: 'Lendo',
     raridade: 'comum',
     source: require('../../assets/Stikers/Comum/Lendo.png'),
@@ -35,31 +35,31 @@ export const PRESET_STICKERS = [
 
   // RARO
   {
-    id: 'raro_concentrado',
+    id: '6',
     nome: 'Concentrado',
     raridade: 'raro',
     source: require('../../assets/Stikers/Raro/Concentrado.png'),
   },
   {
-    id: 'raro_ideia',
+    id: '7',
     nome: 'Ideia',
     raridade: 'raro',
     source: require('../../assets/Stikers/Raro/Ideia.png'),
   },
   {
-    id: 'raro_meta',
+    id: '8',
     nome: 'Meta',
     raridade: 'raro',
     source: require('../../assets/Stikers/Raro/Meta.png'),
   },
   {
-    id: 'raro_oculos',
+    id: '9',
     nome: 'Óculos',
     raridade: 'raro',
     source: require('../../assets/Stikers/Raro/Oculos.png'),
   },
   {
-    id: 'raro_pensando',
+    id: '10',
     nome: 'Pensando',
     raridade: 'raro',
     source: require('../../assets/Stikers/Raro/Pensando.png'),
@@ -67,31 +67,31 @@ export const PRESET_STICKERS = [
 
   // ÉPICO
   {
-    id: 'epico_cientista',
+    id: '11',
     nome: 'Cientista',
     raridade: 'epico',
     source: require('../../assets/Stikers/Epico/Cientista.png'),
   },
   {
-    id: 'epico_foguete',
+    id: '12',
     nome: 'Foguete',
     raridade: 'epico',
     source: require('../../assets/Stikers/Epico/Foguete.png'),
   },
   {
-    id: 'epico_powerup',
+    id: '13',
     nome: 'Power Up',
     raridade: 'epico',
     source: require('../../assets/Stikers/Epico/PoweUp.png'),
   },
   {
-    id: 'epico_saturno',
+    id: '14',
     nome: 'Saturno',
     raridade: 'epico',
     source: require('../../assets/Stikers/Epico/Saturno.png'),
   },
   {
-    id: 'epico_trofeu',
+    id: '15',
     nome: 'Troféu',
     raridade: 'epico',
     source: require('../../assets/Stikers/Epico/Trofeu.png'),
@@ -99,31 +99,31 @@ export const PRESET_STICKERS = [
 
   // LENDÁRIO
   {
-    id: 'lendario_astronauta',
+    id: '16',
     nome: 'Astronauta',
     raridade: 'lendario',
     source: require('../../assets/Stikers/Lendario/Astronauta.png'),
   },
   {
-    id: 'lendario_coroa',
+    id: '17',
     nome: 'Coroa',
     raridade: 'lendario',
     source: require('../../assets/Stikers/Lendario/Coroa.png'),
   },
   {
-    id: 'lendario_galaxia',
+    id: '18',
     nome: 'Galáxia',
     raridade: 'lendario',
     source: require('../../assets/Stikers/Lendario/Galaxia.png'),
   },
   {
-    id: 'lendario_maximo',
+    id: '19',
     nome: 'Máximo',
     raridade: 'lendario',
     source: require('../../assets/Stikers/Lendario/Maximo.png'),
   },
   {
-    id: 'lendario_supremo',
+    id: '20',
     nome: 'Supremo',
     raridade: 'lendario',
     source: require('../../assets/Stikers/Lendario/Supremo.png'),

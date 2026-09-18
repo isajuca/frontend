@@ -59,9 +59,13 @@ export const GerarQuizScreen = ({ route, navigation }) => {
       setQuizResultado(perguntas);
       notifyAlert('Sucesso! 🚀', `${perguntas.length} perguntas foram geradas com a IA do Gemini!`);
     } catch (error) {
-      const msg =
-        error.message ||
-        'Falha ao gerar perguntas com o Gemini. Verifique se a chave GEMINI_API_KEY está configurada no servidor backend.';
+      let msg = error.message || 'Falha ao gerar perguntas com o Gemini. Verifique se a chave GEMINI_API_KEY está configurada no servidor backend.';
+      
+      // Traduz o erro 503 de alta demanda para algo mais amigável
+      if (msg.includes('503') || msg.includes('UNAVAILABLE') || msg.includes('high demand')) {
+        msg = 'O modelo de inteligência artificial está recebendo muitos acessos neste exato momento (alta demanda). Por favor, aguarde alguns instantes e tente novamente.';
+      }
+      
       setErrorMsg(msg);
       notifyAlert('Aviso da IA', msg);
     } finally {
